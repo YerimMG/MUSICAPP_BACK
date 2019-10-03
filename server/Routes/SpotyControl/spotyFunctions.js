@@ -1,6 +1,5 @@
 const querystring  = require('querystring');
 const request      = require('request');
-const redirect_uri = process.env.redirect_uri
 
 //Genera el Token
 let generateRandomString = (length) => {
@@ -17,7 +16,6 @@ var stateKey = 'spotify_auth_state';
     exports.scope = (req, res, ) => {
       var state = generateRandomString(16);
       res.cookie(stateKey, state);
-      console.log(redirect_uri)
 
       // your application requests authorization
       var scope = 'user-read-private user-read-email user-library-read user-top-read user-follow-read user-read-recently-played';
