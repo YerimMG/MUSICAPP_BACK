@@ -31,12 +31,12 @@ const Events      = require('../models/Events')
   
   console.log(state, '&&&&&&' , storedState, '&&&&&&' , code)
 
-  if (state === null || state !== storedState) {
-    res.redirect('/#' +
-      querystring.stringify({
-        error: 'state_mismatch'
-      }));
-  } else {
+  // if (state === null || state !== storedState) {
+  //   res.redirect('/#' +
+  //     querystring.stringify({
+  //       error: 'state_mismatch'
+  //     }));
+  // } else {
 
     res.clearCookie(stateKey);
     var authOptions = {
@@ -232,7 +232,7 @@ const Events      = require('../models/Events')
           }));
       }
     });
-  }
+  // }
 });
 
 //Refres Token
