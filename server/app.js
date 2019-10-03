@@ -21,7 +21,7 @@ const info         = require('./Routes/info')
 
 // CONNECTION TO MONGO 
 const name = "MUSICAPP"
-mongoose.connect(process.env.DDB, { useNewUrlParser: true })
+mongoose.connect(process.env.DDB,{ useNewUrlParser: true })
     .then(db => console.log(`conected to ${name}`))
     .catch(err => console.log(err))
 
