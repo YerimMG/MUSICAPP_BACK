@@ -7,7 +7,7 @@ const Events         = require('../models/Events')
 
 //Ruta de prueba
 router.get('/', (req, res) => {
-  res.json('tester')
+  res.json(`${process.env.USER}`)
 })
 
 
