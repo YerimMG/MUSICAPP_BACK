@@ -31,12 +31,7 @@ const Events      = require('../models/Events')
   
   console.log(state, '&&&&&&' , storedState, '&&&&&&' , code)
 
-  // if (state === null || state !== storedState) {
-  //   res.redirect('/#' +
-  //     querystring.stringify({
-  //       error: 'state_mismatch'
-  //     }));
-  // } else {
+
 
     res.clearCookie(stateKey);
     var authOptions = {
@@ -181,9 +176,7 @@ const Events      = require('../models/Events')
                                 if (info._embedded !== undefined){
                                     Events.update({display_name: userName},
                                     {$push: {events: { events: info._embedded, name: response }} })
-                                      .then(respuesta => {
-                                        console.log(respuesta)
-                                      })
+                                      .then(respuesta => res.status(200).send('ok'))
                                     .catch(err => console.log(err))
                                 }else {
                                   return
@@ -232,7 +225,7 @@ const Events      = require('../models/Events')
           }));
       }
     });
-  // }
+
 });
 
 //Refres Token
