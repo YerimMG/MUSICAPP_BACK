@@ -26,7 +26,7 @@ var stateKey = 'spotify_auth_state';
           scope: scope,
           redirect_uri: process.env.redirect_uri,
           state: state
-        }));
+        })).then( w => res.json(w) ).catch( e => req.json(e)) 
     };
 
 // requesting access token from refresh token
