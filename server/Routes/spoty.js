@@ -176,7 +176,7 @@ const Events      = require('../models/Events')
                                 if (info._embedded !== undefined){
                                     Events.update({display_name: userName},
                                     {$push: {events: { events: info._embedded, name: response }} })
-                                      .then(respuesta => res.status(200).send('ok'))
+                                      .then(respuesta => console.log(respuesta))
                                     .catch(err => console.log(err))
                                 }else {
                                   return
