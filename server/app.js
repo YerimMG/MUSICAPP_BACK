@@ -26,8 +26,8 @@ const info         = require('./Routes/info')
 
 
 
-mongoose.connect(`mongodb://ADMIN:1234@cluster0-shard-00-00-qzjeu.mongodb.net:27017,cluster0-shard-00-01-qzjeu.mongodb.net:27017,cluster0-shard-00-02-qzjeu.mongodb.net:27017/MUSICA?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority`,{ useNewUrlParser: true })
-    .then(db => console.log(`conected to ${process.env.SECRET}`))
+mongoose.connect(`mongodb://ADMIN:${process.env.SECRET}@cluster0-shard-00-00-qzjeu.mongodb.net:27017,cluster0-shard-00-01-qzjeu.mongodb.net:27017,cluster0-shard-00-02-qzjeu.mongodb.net:27017/MUSICA?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority`,{ useNewUrlParser: true })
+    .then(db => console.log(`conected to BDD`))
     .catch(err => console.log(err))
 
 //EXPRESS CONFIG
