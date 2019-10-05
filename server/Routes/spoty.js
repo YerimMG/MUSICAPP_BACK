@@ -184,7 +184,7 @@ const Events      = require('../models/Events')
                               return
                               }
                             })
-                          }, 2000 * index)
+                          }, 1000 * index)
                         })
                         newUserArtists.save()
                         .then(model => {
