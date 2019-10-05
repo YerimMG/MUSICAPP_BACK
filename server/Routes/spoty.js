@@ -29,7 +29,6 @@ const Events      = require('../models/Events')
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
   
-  console.log(state, '&&&&&&' , storedState, '&&&&&&' , code)
 
 
 
@@ -176,8 +175,8 @@ const Events      = require('../models/Events')
                                 if (info._embedded !== undefined){
                                     Events.update({display_name: userName},
                                     {$push: {events: { events: info._embedded, name: response }} })
-                                      .then(respuesta => console.log(respuesta))
-                                    .catch(err => console.log(err))
+                                      .then(respuesta => res.status(200).send("okat"))
+                                      .catch(err => res.status(404).send('Model Not Found'))
                                 }else {
                                   return
                                 }
