@@ -179,13 +179,16 @@ const Events      = require('../models/Events')
                                     events: '',  
                                   }
                                   const presentacion = Object.values(info._embedded.events)
-                                 const events = presentacion.map(response  => {
+                                  const events = presentacion.map(response  => {
                                   return {name: response.name, 
                                           images: response.images, 
                                           date: { day: response.dates.start.localDate,
                                                   hour: response.dates.start.localTime}, 
                                           precios: { min: response.priceRanges[0].min,
                                                      max: response.priceRanges[0].max },
+                                          lugar: { rescinto: response._embedded.venues[0].name,
+                                                  city:  response._embedded.venues[0].city.name,
+                                                  state: response._embedded.venues[0].state.name  },
                                           url: response.url
                                   }
                                 })
