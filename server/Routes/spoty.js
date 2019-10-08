@@ -175,7 +175,7 @@ const Events      = require('../models/Events')
                                 if (info._embedded !== undefined){
                                   let artista = {
                                     name: response, 
-                                    info: '',
+                                    info: info._embedded.events[0].info,
                                     events: '',  
                                   }
                                   const presentacion = Object.values(info._embedded.events)
