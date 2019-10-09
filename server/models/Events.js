@@ -3,10 +3,7 @@ const Schema   = mongoose.Schema;
 
 
 const Events = new Schema({
-  events: [{
-    events: [],
-    name: String
-  }],
+  events: [],
   spotyId: String,
   display_name: String,
   access_token:   String,

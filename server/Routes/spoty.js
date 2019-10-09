@@ -75,7 +75,7 @@ const Events      = require('../models/Events')
                     .then(user => { 
                       res.status(400).json(user)
                     })
-                    .catch(err => res.status(404).send('Model Not Found'))
+                    .catch(error => { throw error})
 
                     //UPDATE A USER'S TOP ARTISTS 
                       var userTopArtists = {
@@ -89,7 +89,7 @@ const Events      = require('../models/Events')
                           .then( user => {
                             res.status(400).json(user)
                           })
-                          .catch(err => res.status(404).send('Model Not Found'))
+                          .catch(error => { throw error})
                       })
                     //UPDATE A USER'S TOP TRACKS 
                       var userTopTracks = {
@@ -103,7 +103,7 @@ const Events      = require('../models/Events')
                           .then (user => {
                             res.status(400).json(user)
                           })
-                          .catch(err => res.status(404).send('Model Not Found'))
+                          .catch(error => { throw error})
                       })
 
                       //UPDATE TOKEN EVENTS USER
@@ -111,7 +111,7 @@ const Events      = require('../models/Events')
                         .then (user => {
                           res.status(400).json(user)
                         })
-                        .catch(err => res.status(404).send('Model Not Found'))
+                        .catch(error => { throw error})
                 } else {
                       //Genera el modelo con la informacion del usuario
                       newUser.access_token  = access_token,
@@ -121,7 +121,7 @@ const Events      = require('../models/Events')
                         res.json(resp)
                         
                       })
-                      .catch(err => res.status(404).send('Model Not Found'))
+                      .catch(error => { throw error})
 
                      //GET A USER'S TOP ARTISTS AND CONCERTS FROM TM
                       var userTopArtists = {
@@ -148,7 +148,7 @@ const Events      = require('../models/Events')
                           .then(userSaved => {
                             res.json(userSaved)
                           })
-                          .catch(err => res.status(404).send('smt went wrong'))
+                          .catch(error => { throw error})
 
                           nombresArtistas  = body.items
                           const names = []
@@ -171,25 +171,48 @@ const Events      = require('../models/Events')
                             .then(user => {
                               if (user === null){
                                 return 
-                              }else {
+                              } else {
                                 if (info._embedded !== undefined){
-                                    Events.update({display_name: userName},
-                                    {$push: {events: { events: info._embedded, name: response }} })
-                                      .then(respuesta => res.status(200).send("okat"))
-                                      .catch(err => res.status(404).send('Model Not Found'))
+                                  let artista = {
+                                    name: response, 
+                                    info: info._embedded.events[0].info,
+                                    events: '',  
+                                  }
+                                  const presentacion = Object.values(info._embedded.events)
+                                  const events = presentacion.map(response  => {
+                                  return {name: response.name, 
+                                          images: response.images, 
+                                          date: { day: response.dates.start.localDate,
+                                                  hour: response.dates.start.localTime}, 
+                                          precios: { min: response.priceRanges[0].min,
+                                                     max: response.priceRanges[0].max },
+                                          lugar: { rescinto: response._embedded.venues[0].name,
+                                                  city:  response._embedded.venues[0].city.name,
+                                                  state: response._embedded.venues[0].state.name  },
+                                          url: response.url
+                                  }
+                                })
+                                
+                                 artista.events = events
+                                    Events.update({display_name: userName}, 
+                                    {$push: {events: {artista}} })
+                                      .then(respuesta => 
+                                        res.status(200).send('okay')
+                                        )
+                                        .catch(error => { throw error})
                                 }else {
                                   return
                                 }
                               return
                               }
                             })
-                          }, 1000 * index)
+                          }, 0750 * index)
                         })
                         newUserArtists.save()
                         .then(model => {
                           res.json(model)
                         })
-                        .catch(err => res.status(404).send('Model Not Found'))
+                        .catch(error => { throw error})
                       })
                     
                      //GET A USER'S TOP TRACKS 
@@ -210,10 +233,10 @@ const Events      = require('../models/Events')
                           .then(model => {
                             res.json(model)
                           })
-                          .catch(err => res.status(404).send('Model Not Found'))
+                          .catch(error => { throw error})
                       })  
                 }
-            })
+            }).catch(error => { throw error})
           res.redirect(`${process.env.redirect_info}/Home/?token=${access_token}`)
         });
        
