@@ -20,6 +20,7 @@ router.get('/:token', (req, res, next) => {
 //GET ALL THE USER ARTIST INFO (NAME AND IMG)
 router.get('/:token/Artists', (req, res, next) => {
   const { token } = req.params
+  
   spotyUser.find({ access_token: token })
     .then(user =>{
       spotyUserArtists.find({ display_name: user[0].display_name})

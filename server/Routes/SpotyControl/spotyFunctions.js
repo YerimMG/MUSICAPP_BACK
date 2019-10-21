@@ -17,7 +17,7 @@ var stateKey = 'spotify_auth_state';
       var state = generateRandomString(16);
       res.cookie(stateKey, state);
 
-      // your application requests authorization
+// your application requests authorization
       var scope = 'user-read-private user-read-email user-library-read user-top-read user-follow-read user-read-recently-played';
       res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({

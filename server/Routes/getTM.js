@@ -19,7 +19,6 @@ router.get('/:token', (req, res) => {
       res.json(respuesta)
     })
     .catch(err => res.status(404).send('Model Not Found'))
-  // res.json(token)
 
 })
 module.exports = router;
