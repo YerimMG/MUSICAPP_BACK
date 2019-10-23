@@ -253,11 +253,9 @@ const Events      = require('../models/Events')
 //Refres Token
   router.get('/refresh_token', SpotyControl.refresToken);
 
+
+  
 module.exports = router;
-
-
-
-
 
 
 
